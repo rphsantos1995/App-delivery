@@ -14,6 +14,7 @@ const login  = async (req,res) => {
     if (!user) {
         return res.status(NOT_FOUND).json({message:NF})
     }
+
      return res.status(OK).json(user);
  } catch (e) {
      return res.status(INTERNAL_SERVER_ERROR).json({message:INTERNAL})

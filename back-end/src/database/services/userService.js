@@ -10,6 +10,7 @@ const loginUser = async (password , email) => {
     if (!user || md5(password) !== user.password) {
         throw new Error();
     }
+    delete user.password
     const token = generateToken(user)
 
     return {...user,token};
@@ -26,4 +27,4 @@ const generateToken = (payload) => {
 
 
 
-module.exports = {loginUser,verifyToken};
+module.exports = {loginUser};
