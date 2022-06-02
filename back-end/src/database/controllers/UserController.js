@@ -1,4 +1,4 @@
-const {loginUser} = require("../service/userService");
+const {loginUser} = require("../services/userService");
 const {INTERNAL,NF} = require("../helpers/errorMessages");
 const {
     StatusCodes:
