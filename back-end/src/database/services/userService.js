@@ -1,13 +1,12 @@
 const {User} = require('../models');
 const md5 = require('md5');
 const fs = require('fs');
-const {sign} = require('jsonwebtoken');
+const {sign,verify} = require('jsonwebtoken');
 
 const SECRET = fs.readFileSync('../back-end/jwt.evaluation.key')
 
 const loginUser = async (password , email) => {
     const user = await User.findOne({ where: { email },raw:true });
-    console.log(user);
     if (!user || md5(password) !== user.password) {
         throw new Error();
     }
@@ -25,4 +24,6 @@ const generateToken = (payload) => {
     return token;
 }
 
-module.exports = {loginUser};
+
+
+module.exports = {loginUser,verifyToken};
