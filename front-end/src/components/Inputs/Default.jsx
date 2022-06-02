@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Default({ input }) {
+export default function Default({ type, name, placeholder, testId }) {
   return (
-    <label htmlFor="default-input">
-      { input.name }
-      <input type="text" placeholder={ input.placeholder } />
+    <label htmlFor={ `${type}-input` }>
+      { name }
+      <input type={ type } placeholder={ placeholder } data-testid={ testId } />
     </label>
   );
 }
 
 Default.propTypes = {
-  input: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    placeholder: PropTypes.string.isRequired,
-  }).isRequired,
+  name: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  testId: PropTypes.string.isRequired,
 };
