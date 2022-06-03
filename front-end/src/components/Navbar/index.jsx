@@ -23,11 +23,9 @@ function Navbar(props) {
         {menu[userRole].map((button, index) => (
           <Buttons
             key={ button[1] }
-            type={ {
-              textButton: button[1],
-              testId: testId[button[0]],
-              classButton: index === 0 ? 'btn-1' : 'btn-0',
-            } }
+            testId={ testId[button[0]] }
+            textButton={ button[1] }
+            classButton={ index === 0 ? 'btn-1' : 'btn-0' }
           />
         ))}
       </div>
