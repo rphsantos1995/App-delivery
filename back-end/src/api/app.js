@@ -1,5 +1,6 @@
 const express = require('express');
-const userRouter = require('../database/router/UserRouter');
+const productRouter = require('./router/ProductRouter');
+const userRouter = require('./router/UserRouter');
 
 const app = express();
 
@@ -7,5 +8,6 @@ app.use(express.json());
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 app.use('/login', userRouter);
+app.use('/products', productRouter);
 
 module.exports = app;
