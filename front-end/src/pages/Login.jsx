@@ -11,6 +11,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
   const [failedLogin, setFailedLogin] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
   const user = useTokenUser();
   const Navigate = useNavigate();
 
@@ -27,7 +28,7 @@ export default function Login() {
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [user, isLogged]);
 
   useEffect(() => {
     // regex from https://pt.stackoverflow.com/q/1386 porém modificado para incluir .br corretamente (nem precisava)
@@ -50,11 +51,13 @@ export default function Login() {
 
   const login = async (event) => {
     event.preventDefault();
-    console.log('login clicked', email, password);
     const endpoint = '/login';
     const { token } = await executeLogin(endpoint, { email, password });
-    console.log(token);
-    return token ? setTokenLocalStorage(token) : setFailedLogin(true);
+    if (!token) {
+      setFailedLogin(true);
+    }
+    setTokenLocalStorage(token);
+    setIsLogged(true);
   };
 
   return (

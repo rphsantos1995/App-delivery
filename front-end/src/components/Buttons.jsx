@@ -22,10 +22,11 @@ Buttons.propTypes = {
   testId: PropTypes.string.isRequired,
   classButton: PropTypes.string.isRequired,
   textButton: PropTypes.string.isRequired,
-  disabled: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool,
   clicked: PropTypes.func.isRequired,
 };
 
 Buttons.defaultProps = {
   type: 'button',
+  disabled: false,
 };

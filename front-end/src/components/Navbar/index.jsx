@@ -26,6 +26,7 @@ function Navbar(props) {
             testId={ testId[button[0]] }
             textButton={ button[1] }
             classButton={ index === 0 ? 'btn-1' : 'btn-0' }
+            clicked={ () => null }
           />
         ))}
       </div>
