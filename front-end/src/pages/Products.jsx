@@ -1,23 +1,17 @@
-// import React, { useEffect, useState } from 'react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CardProduct from '../components/CardProduct';
 import Navbar from '../components/Navbar';
+import { requestGet } from '../services/requests';
 
 export default function Products() {
-  // const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
 
-  // useEffect(() => {
-  //   fetch('http://localhost:3001/products')
-  //     .then((data) => setProducts(data));
-  // }, []);
-
-  const products = [
-    {
-      id: 'dsghlshdag',
-      price: '2,20',
-      url_image: 'image',
-    },
-  ];
+  useEffect(() => {
+    (async () => {
+      const { data } = await requestGet('/products');
+      setProducts(data);
+    })();
+  }, []);
 
   return (
     <div>
@@ -26,6 +20,7 @@ export default function Products() {
         products.map((product, index) => (
           <CardProduct
             key={ product.id }
+            id={ product.id }
             price={ product.price }
             image={ product.url_image }
             index={ index + 1 }
