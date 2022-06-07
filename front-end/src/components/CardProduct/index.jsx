@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import testId from '../../helpers/dataTestIds';
 import Counter from '../Inputs/Counter';
 
-export default function CardProduct({ id, price, image, name, index }) {
+export default function CardProduct({ id, price, image, name }) {
   const product = {
     id,
     name,
@@ -13,13 +13,18 @@ export default function CardProduct({ id, price, image, name, index }) {
 
   return (
     <div className="card-product">
-      <span className="price" data-testid={ `${testId[16]}${index}` }>
-        { price }
+      <span className="price" data-testid={ `${testId[16]}${id}` }>
+        { price.replace('.', ',') }
       </span>
-      <img src={ image } alt={ name } data-testid={ `${testId[17]}${index}` } />
-      <p data-testid={ `${testId[15]}${index}` }>{ name }</p>
+      <img
+        src={ image }
+        style={ { width: 50 } }
+        alt={ name }
+        data-testid={ `${testId[17]}${id}` }
+      />
+      <p data-testid={ `${testId[15]}${id}` }>{ name }</p>
       <Counter
-        index={ index }
+        index={ id }
         product={ product }
       />
     </div>

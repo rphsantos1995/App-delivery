@@ -31,7 +31,7 @@ function Navbar(props) {
         ))}
       </div>
       <div>
-        <User name="Artur" />
+        <User testId={ testId[13] } name="Artur" />
         {/* substituir o name pelo resultado do fetch da api */}
         <ExitButton />
       </div>
