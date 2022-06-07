@@ -1,4 +1,4 @@
 module.exports = {
     INTERNAL:'Internal error',
-    NF:'Not found'
+    NF:'User not found'
 }
