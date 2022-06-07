@@ -12,6 +12,7 @@ export default function Login() {
   const [isDisabled, setIsDisabled] = useState(true);
   const [failedLogin, setFailedLogin] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
   const user = useTokenUser();
   const Navigate = useNavigate();
 
@@ -24,15 +25,15 @@ export default function Login() {
       case 'seller':
         return Navigate('/seller', { state: { role, name } });
       default:
-        return Navigate('/user', { state: { role, name } });
+        return Navigate('/customer/products', { state: { role, name } });
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, isLogged]);
+  }, [user, isLogged, failedLogin]);
 
   useEffect(() => {
     // regex from https://pt.stackoverflow.com/q/1386 porém modificado para incluir .br corretamente (nem precisava)
-    const testeEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(.[a-z]+)?$/i;
+    const testeEmail = /^[a-z0-9._]+@[a-z0-9]+\.[a-z]+(.[a-z]+)?$/i;
     const passLength = 6;
     const teste = testeEmail.test(email) && password.length >= passLength;
     setIsDisabled(!teste);
@@ -52,12 +53,16 @@ export default function Login() {
   const login = async (event) => {
     event.preventDefault();
     const endpoint = '/login';
-    const { token } = await executeLogin(endpoint, { email, password });
-    if (!token) {
+    const result = await executeLogin(endpoint, { email, password })
+    if (Object.keys(result).includes('response')) {
+      setErrorMsg(result.response.data.message)
       setFailedLogin(true);
+    };
+    if (result.token) {
+      setTokenLocalStorage(result.token);
+      setIsLogged(true);
     }
-    setTokenLocalStorage(token);
-    setIsLogged(true);
+    return false;
   };
 
   return (
@@ -99,7 +104,7 @@ export default function Login() {
       {
         (failedLogin)
           ? (
-            <span data-testid={ testId[5] }> MENSAGEM de ERRO do back hidden</span>
+            <span data-testid={ testId[5] }> {errorMsg}</span>
           ) : null
       }
     </main>
