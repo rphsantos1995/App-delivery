@@ -5,7 +5,7 @@ export default function Buttons({
   type, testId, classButton, textButton, disabled, clicked }) {
   return (
     <button
-      type={ type || 'button' }
+      type={ type }
       data-testid={ testId }
       className={ classButton }
       disabled={ disabled }
