@@ -3,13 +3,19 @@ import PropTypes from 'prop-types';
 
 export default function Buttons({
   type, testId, classButton, textButton, disabled, clicked }) {
+
+  const buttonProps = {
+    type,
+    'data-testid': testId,
+    className: classButton,
+    disabled,
+    onClick: clicked,
+  };
+
   return (
     <button
-      type={ type }
-      data-testid={ testId }
-      className={ classButton }
-      disabled={ disabled }
-      onClick={ clicked }
+      type="submit"
+      { ...buttonProps }
     >
       { textButton }
     </button>
