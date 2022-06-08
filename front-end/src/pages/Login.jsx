@@ -104,7 +104,7 @@ export default function Login() {
       {
         (failedLogin)
           ? (
-            <span data-testid={ testId[5] }> 
+            <span data-testid={ testId[5] }>
               {errorMsg}
             </span>
           ) : null
