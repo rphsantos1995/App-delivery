@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 export default function Buttons({
   type, testId, classButton, textButton, disabled, clicked }) {
-
   const buttonProps = {
     type,
     'data-testid': testId,
