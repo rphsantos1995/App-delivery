@@ -6,7 +6,7 @@ export default function Buttons({
   return (
     <button
       // eslint-disable-next-line react/button-has-type
-      type={ type || 'button' }
+      type={ type ? type : 'button' }
       data-testid={ testId }
       className={ classButton }
       disabled={ disabled }
