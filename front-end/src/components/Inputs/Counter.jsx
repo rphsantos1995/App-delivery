@@ -23,10 +23,11 @@ export default function Counter({ index, product }) {
     setCart(cartFinal);
   };
 
-  useEffect(() => {
+  const effects = [() => {
     addToCart(product);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [quantity]);
+  }, [quantity]];
+
+  useEffect(...effects);
 
   useEffect(() => {
     if (cart.length > 0) {
@@ -72,7 +73,7 @@ Counter.propTypes = {
   index: PropTypes.number.isRequired,
   product: PropTypes.shape({
     id: PropTypes.number,
-    price: PropTypes.number,
+    price: PropTypes.string,
     image: PropTypes.string,
     name: PropTypes.string,
   }).isRequired,

@@ -33,7 +33,7 @@ export default function CardProduct({ id, price, image, name }) {
 
 CardProduct.propTypes = {
   id: PropTypes.number.isRequired,
-  price: PropTypes.number.isRequired,
+  price: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
 };

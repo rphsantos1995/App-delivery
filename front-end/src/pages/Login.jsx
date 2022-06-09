@@ -16,7 +16,7 @@ export default function Login() {
   const user = useTokenUser();
   const Navigate = useNavigate();
 
-  useEffect(() => {
+  const effects = [() => {
     if (user.payload) {
       const { role, name } = user.payload;
       switch (role) {
@@ -28,8 +28,9 @@ export default function Login() {
         return Navigate('/customer/products', { state: { role, name } });
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, isLogged, failedLogin]);
+  }, [user, isLogged, failedLogin]];
+
+  useEffect(...effects);
 
   useEffect(() => {
     // regex from https://pt.stackoverflow.com/q/1386 porém modificado para incluir .br corretamente (nem precisava)
@@ -48,7 +49,10 @@ export default function Login() {
     }
   };
 
-  const setTokenLocalStorage = (token) => localStorage.setItem('token', token);
+  const setLocalStorage = ({ token, name, email: usermail, role }) => {
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify({ name, usermail, role }));
+  };
 
   const login = async (event) => {
     event.preventDefault();
@@ -59,7 +63,7 @@ export default function Login() {
       setFailedLogin(true);
     }
     if (result.token) {
-      setTokenLocalStorage(result.token);
+      setLocalStorage(result);
       setIsLogged(true);
     }
     return false;
