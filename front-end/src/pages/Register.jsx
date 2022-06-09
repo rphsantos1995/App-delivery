@@ -39,7 +39,10 @@ export default function Register() {
     }
   };
 
-  const setTokenLocalStorage = (token) => localStorage.setItem('token', token);
+  const setLocalStorage = ({ token, name, email: usermail, role }) => {
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify({ name, usermail, role }));
+  };
 
   const create = async (event) => {
     event.preventDefault();
@@ -52,7 +55,7 @@ export default function Register() {
     //   setFailedRegister(true);
     // }
     if (result.token) {
-      setTokenLocalStorage(result.token);
+      setLocalStorage(result);
       setIsLogged(true);
     }
     if (!result.token) {
