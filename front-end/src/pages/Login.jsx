@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import useTokenUser from '../helpers/useTokenUser';
 import Input from '../components/Inputs/Default';
 import testId from '../helpers/dataTestIds';
@@ -92,14 +92,16 @@ export default function Login() {
           disabled={ isDisabled }
           clicked={ (event) => login(event) }
         />
-        <Button
-          type="submit"
-          textButton="Ainda não tenho conta"
-          classButton="btn-3"
-          testId={ testId[4] }
-          disabled={ false }
-          clicked={ () => false }
-        />
+        <Link to="/register">
+          <Button
+            type="submit"
+            textButton="Ainda não tenho conta"
+            classButton="btn-3"
+            testId={ testId[4] }
+            disabled={ false }
+            clicked={ () => false }
+          />
+        </Link>
       </form>
       {
         (failedLogin)

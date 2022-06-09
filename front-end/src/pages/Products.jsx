@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import CardProduct from '../components/CardProduct';
+import React, { useEffect } from 'react';
+// import CardProduct from '../components/CardProduct';
 import Navbar from '../components/Navbar';
 import { requestGet } from '../services/api';
 
 export default function Products() {
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -16,7 +16,8 @@ export default function Products() {
   return (
     <div>
       <Navbar userRole="customer" />
-      {
+      <p>Tela de produtos</p>
+      {/* {
         products.map((product, index) => (
           <CardProduct
             key={ product.id }
@@ -27,7 +28,7 @@ export default function Products() {
             name={ product.name }
           />
         ))
-      }
+      } */}
     </div>
   );
 }
