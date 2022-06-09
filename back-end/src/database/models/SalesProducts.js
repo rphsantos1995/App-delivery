@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      models.Products.belongsToMany(models.Sales, { through: 'salesProducts', foreignKey: 'product_id' });
-      models.Sales.belongsToMany(models.Products, { through: 'salesProducts', foreignKey: 'sale_id' });
+      models.Products.belongsToMany(models.Sales, { through: 'sales_products', foreignKey: 'product_id' });
+      models.Sales.belongsToMany(models.Products, { through: 'sales_products', foreignKey: 'sale_id' });
     }
   }
   SalesProducts.init({
@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     timestamps: false,
     modelName: 'SalesProducts',
-    tableName: 'salesProducts'
+    tableName: 'sales_products'
   });
   return SalesProducts;
 };
