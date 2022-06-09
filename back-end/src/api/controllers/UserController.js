@@ -17,7 +17,7 @@ const login = async (req, res) => {
      }
      const { message } = user;
      if (message) {
-         return res.status(UNAUTHORIZED).json({message});
+         return res.status(UNAUTHORIZED).json({ message });
      }
 
      return res.status(OK).json(user);

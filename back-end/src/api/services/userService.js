@@ -19,7 +19,7 @@ const loginUser = async (password, email) => {
         return false;
     }
     if (user.email !== email || md5(password) !== user.password) {
-        return {message:'Invalid password or email'}
+        return { message: 'Invalid password or email' };
     }
     delete user.password;
     const token = generateToken(user);

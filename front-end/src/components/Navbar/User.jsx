@@ -2,10 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function User(props) {
-  const { name } = props;
+export default function User({ name, testId }) {
   return (
-    <span>
+    <span data-testid={ testId }>
       <Link
         className="user-page"
         to="/user"
@@ -18,4 +17,5 @@ export default function User(props) {
 
 User.propTypes = {
   name: PropTypes.string.isRequired,
+  testId: PropTypes.string.isRequired,
 };
