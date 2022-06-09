@@ -53,11 +53,11 @@ export default function Login() {
   const login = async (event) => {
     event.preventDefault();
     const endpoint = '/login';
-    const result = await executeLogin(endpoint, { email, password })
+    const result = await executeLogin(endpoint, { email, password });
     if (Object.keys(result).includes('response')) {
-      setErrorMsg(result.response.data.message)
+      setErrorMsg(result.response.data.message);
       setFailedLogin(true);
-    };
+    }
     if (result.token) {
       setTokenLocalStorage(result.token);
       setIsLogged(true);
@@ -104,7 +104,9 @@ export default function Login() {
       {
         (failedLogin)
           ? (
-            <span data-testid={ testId[5] }> {errorMsg}</span>
+            <span data-testid={ testId[5] }>
+              { errorMsg }
+            </span>
           ) : null
       }
     </main>
