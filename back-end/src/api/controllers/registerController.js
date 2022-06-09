@@ -8,8 +8,8 @@ const { INTERNAL } = require('../helpers/errorMessages');
 
 const create = async (req, res) => { 
     try {
-        const { name, email, password } = req.body;
-        const { status, data } = await createUser(name, email, password);
+        const { username, email, password } = req.body;
+        const { status, data } = await createUser(username, email, password);
         return res.status(status).json(data);
     } catch (err) {
         console.log(err);

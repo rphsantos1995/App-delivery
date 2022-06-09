@@ -16,6 +16,15 @@ export const executeLogin = async (endpoint, body) => {
   }
 };
 
+export const createUser = async (endpoint, body) => {
+  try {
+    const newUser = await api.post(endpoint, body);
+    return newUser.data;
+  } catch (err) {
+    return err;
+  }
+};
+
 export const requestGet = async (endpoint) => {
   const data = await api.get(endpoint);
   return data;
