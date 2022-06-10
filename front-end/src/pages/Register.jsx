@@ -41,7 +41,7 @@ export default function Register() {
 
   const setLocalStorage = ({ token, name, email: usermail, role }) => {
     localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify({ name, usermail, role }));
+    localStorage.setItem('user', JSON.stringify({ name, email: usermail, role }));
   };
 
   const create = async (event) => {

@@ -51,7 +51,7 @@ export default function Login() {
 
   const setLocalStorage = ({ token, name, email: usermail, role }) => {
     localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify({ name, usermail, role }));
+    localStorage.setItem('user', JSON.stringify({ name, email: usermail, role }));
   };
 
   const login = async (event) => {
