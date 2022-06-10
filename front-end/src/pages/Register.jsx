@@ -50,10 +50,6 @@ export default function Register() {
 
     const result = await createUser(endpoint, { username, email, password });
 
-    // if (result.response.data.includes("User already created")) {
-    //   setErrorMsg(result.response.data);
-    //   setFailedRegister(true);
-    // }
     if (result.token) {
       setLocalStorage(result);
       setIsLogged(true);

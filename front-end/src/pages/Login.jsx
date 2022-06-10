@@ -21,7 +21,7 @@ export default function Login() {
       const { role, name } = user.payload;
       switch (role) {
       case 'administrator':
-        return Navigate('/manager', { state: { role, name } });
+        return Navigate('/admin/manage', { state: { role, name } });
       case 'seller':
         return Navigate('/seller', { state: { role, name } });
       default:
