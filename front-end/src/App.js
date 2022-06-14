@@ -8,6 +8,7 @@ import Manager from './pages/Manager';
 import Orders from './pages/Orders';
 import Products from './pages/Products';
 import Register from './pages/Register';
+import Checkout from './pages/Checkout';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/register" element={ <Register /> } />
           <Route path="/seller" element={ <Orders /> } />
           <Route path="/customer/products" element={ <Products /> } />
+          <Route path="/customer/checkout" element={ <Checkout /> } />
           <Route path="/login" element={ <Login /> } />
           <Route path="/admin/manage" element={ <Manager /> } />
           <Route exact path="/" element={ <Navigate to="/login" /> } />
