@@ -3,11 +3,17 @@ import PropTypes from 'prop-types';
 import ProductsContext from './ProductsContext';
 
 export default function ProductsProvider({ children }) {
-  const [cart, setCart] = useState([]);
+  const cartJSON = JSON.parse(localStorage.getItem('carrinho'));
+  const cartInital = cartJSON || [];
+
+  const [cart, setCart] = useState(cartInital);
+  const [allTotalPrice, setAllTotalPrice] = useState(0);
 
   const valores = {
     cart,
     setCart,
+    allTotalPrice,
+    setAllTotalPrice,
   };
 
   return (
