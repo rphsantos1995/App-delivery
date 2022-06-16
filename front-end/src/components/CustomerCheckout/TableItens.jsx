@@ -21,11 +21,15 @@ export default function TableItens() {
         {
           cart.map(({ id, name, quantity, price }, index) => (
             <tr key={ id }>
-              <td data-testid={ `${testId[22]}${index}` }>{ id }</td>
+              <td data-testid={ `${testId[22]}${index}` }>{ index + 1 }</td>
               <td data-testid={ `${testId[23]}${index}` }>{ name }</td>
               <td data-testid={ `${testId[24]}${index}` }>{ quantity }</td>
-              <td data-testid={ `${testId[25]}${index}` }>{ price }</td>
-              <td data-testid={ `${testId[26]}${index}` }>{ price * quantity }</td>
+              <td data-testid={ `${testId[25]}${index}` }>
+                { String(price).replace('.', ',') }
+              </td>
+              <td data-testid={ `${testId[26]}${index}` }>
+                { String(price * quantity).replace('.', ',') }
+              </td>
               <td data-testid={ `${testId[27]}${index}` }>
                 <button type="button">Remover</button>
               </td>
