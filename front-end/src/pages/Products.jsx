@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import CardProduct from '../components/CardProduct';
 import Navbar from '../components/Navbar';
 import ProductsContext from '../context/ProductsContext';
-import dataTestIds from '../helpers/dataTestIds';
+import testId from '../helpers/dataTestIds';
 import { requestGet } from '../services/api';
 
 export default function Products() {
@@ -41,12 +41,12 @@ export default function Products() {
       <p>Tela de produtos</p>
       <button
         type="button"
-        data-testid={ dataTestIds[79] }
+        data-testid={ testId[79] }
         onClick={ redirectToCheckout }
         disabled={ allTotalPrice === 0 }
       >
         <span>Ver carrinho: </span>
-        <span data-testid={ dataTestIds[21] }>{ allTotalPrice }</span>
+        <span data-testid={ testId[21] }>{ allTotalPrice }</span>
       </button>
       {
         products.map((product) => (

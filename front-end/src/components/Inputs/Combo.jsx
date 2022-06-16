@@ -5,7 +5,7 @@ export default function Combo({ combo }) {
   return (
     <label htmlFor="combo-input">
       { combo.name }
-      <select>
+      <select data-testid={ combo.testId }>
         {
           combo.itens.map((item) => (
             <option key={ item }>{ item }</option>
@@ -22,5 +22,6 @@ Combo.propTypes = {
     itens: PropTypes.arrayOf(
       PropTypes.string,
     ),
+    testId: PropTypes.string.isRequired,
   }).isRequired,
 };
