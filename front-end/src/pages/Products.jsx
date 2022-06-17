@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import ProductsContext from '../context/ProductsContext';
 import testId from '../helpers/dataTestIds';
 import { requestGet } from '../services/api';
+import sumTotalPriceCart from '../utils/sumTotalPriceCart';
 
 export default function Products() {
   const { cart, allTotalPrice, setAllTotalPrice } = useContext(ProductsContext);
@@ -20,11 +21,7 @@ export default function Products() {
 
   useEffect(() => {
     if (cart.length > 0) {
-      const sum = cart
-        .map(({ quantity, price }) => quantity * price)
-        .reduce((acc, cur) => acc + cur)
-        .toFixed(2)
-        .replace('.', ',');
+      const sum = sumTotalPriceCart(cart);
       setAllTotalPrice(sum);
     } else {
       setAllTotalPrice(0);

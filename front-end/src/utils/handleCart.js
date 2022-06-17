@@ -14,7 +14,6 @@ const changeItemInCart = (cart, product, action) => {
           quantity: existingProduct.quantity - 1,
         };
       } if (existingProduct.id === product.id && typeof action === 'number') {
-        console.log('aqui');
         return {
           ...existingProduct,
           quantity: action,
@@ -28,8 +27,8 @@ const changeItemInCart = (cart, product, action) => {
   return [...cart, { ...product, quantity: 1 }];
 };
 
-const handleCart = (cart, product, quantity) => {
-  const newCart = changeItemInCart(cart, product, quantity);
+const handleCart = (cart, product, action) => {
+  const newCart = changeItemInCart(cart, product, action);
   return newCart.filter((item) => item.quantity > 0);
 };
 
