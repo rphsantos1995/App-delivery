@@ -3,7 +3,14 @@ import ProductsContext from '../../context/ProductsContext';
 import testId from '../../helpers/dataTestIds';
 
 export default function TableItens() {
-  const { cart } = useContext(ProductsContext);
+  const { cart, setCart } = useContext(ProductsContext);
+
+  const removeToCart = (id) => {
+    const cartJSON = JSON.parse(localStorage.getItem('carrinho'));
+    const filtered = cartJSON.filter((item) => item.id !== id);
+    localStorage.setItem('carrinho', JSON.stringify(filtered));
+    setCart(filtered);
+  };
 
   return (
     <table>
@@ -28,10 +35,18 @@ export default function TableItens() {
                 { String(price).replace('.', ',') }
               </td>
               <td data-testid={ `${testId[26]}${index}` }>
-                { String(price * quantity).replace('.', ',') }
+                {
+                  (price * quantity).toFixed(2).replace('.', ',')
+                }
               </td>
               <td data-testid={ `${testId[27]}${index}` }>
-                <button type="button">Remover</button>
+                <button
+                  type="button"
+                  onClick={ () => removeToCart(id) }
+                >
+                  Remover
+
+                </button>
               </td>
             </tr>
           ))
