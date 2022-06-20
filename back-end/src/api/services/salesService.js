@@ -19,4 +19,16 @@ const createSale = async ({ saleInfo, products }) => {
   return dataValues;
 };
 
-module.exports = { createSale };
+const getSales = async (id, role) => {
+  const isAdmin = role === 'administrador';
+  const isSeller = role === 'seller';
+  const sales = await Sales.findAll({
+    include: 'products',
+    where: isAdmin ? {} : {
+      [isSeller ? 'sellerId' : 'userId']: id,
+    },
+  });
+  return sales;
+};
+
+module.exports = { createSale, getSales };
