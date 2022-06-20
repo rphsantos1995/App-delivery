@@ -12,21 +12,28 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsTo(models.User, { foreignKey: 'user_id', as: 'users'});
       this.belongsTo(models.User, { foreignKey: 'seller_id', as: 'seller' });
+      this.belongsToMany(models.Products, {
+        through: 'sales_products',
+        as: 'sales',
+        foreignKey: 'sale_id',
+        otherKey: 'product_id',
+      });
     }
   }
   Sales.init({
-    user_id: DataTypes.INTEGER,
-    seller_id: DataTypes.INTEGER,
-    total_price: DataTypes.INTEGER,
-    delivery_address: DataTypes.STRING,
-    delivery_number: DataTypes.INTEGER,
-    sale_date: DataTypes.DATE,
+    userId: DataTypes.INTEGER,
+    sellerId: DataTypes.INTEGER,
+    totalPrice: DataTypes.INTEGER,
+    deliveryAddress: DataTypes.STRING,
+    deliveryNumber: DataTypes.INTEGER,
+    saleDate: DataTypes.DATE,
     status: DataTypes.STRING
   }, {
     sequelize,
     timestamps: false,
     modelName: 'Sales',
-    tableName: 'sales'
+    tableName: 'sales',
+    underscored: true
   });
   return Sales;
 };
