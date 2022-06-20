@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-export default function ExitButton() {
+export default function ExitButton({ clicked }) {
   return (
-    <button type="button">
+    <button type="button" onClick={ clicked }>
       <Link
         className="exit-button"
         data-testid="customer_products__element-navbar-link-logout"
@@ -14,3 +15,7 @@ export default function ExitButton() {
     </button>
   );
 }
+
+ExitButton.propTypes = {
+  clicked: PropTypes.func.isRequired,
+};
