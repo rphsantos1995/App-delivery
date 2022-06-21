@@ -3,27 +3,39 @@ import PropTypes from 'prop-types';
 import testId from '../../helpers/dataTestIds';
 import OrderStatus from './OrderStatus';
 import roleIds from '../../helpers/roleIds';
+import { four } from '../../helpers/numbers';
+import brasil from '../../helpers/formats';
 
-export default function OrderCard({ role, status }) {
+export default function OrderCard({ role, order }) {
   return (
     <section className="order-card">
       <p
         data-testid={ testId[roleIds[role].orderNum] }
         className="order-number"
       >
-        Pedido n
+        Pedido
+        <br />
+        {String(order.id).padStart(four, '0')}
       </p>
-      {/* Alterar para ser dinamico de acordo com a api */}
       <div className="order-card-right">
         <div className="order-card-upper-right">
-          <OrderStatus status={ status } testIdNum={ testId[roleIds[role].orderStats] } />
+          <OrderStatus
+            status={ order.status }
+            testIdNum={ testId[roleIds[role].orderStats] }
+          />
           <div className="order-card-info">
-            <span data-testid={ testId[roleIds[role].orderDate] }> Data </span>
-            <span data-testid={ testId[roleIds[role].orderValue] }> Value </span>
+            <span data-testid={ testId[roleIds[role].orderDate] }>
+              {new Date(order.saleDate).toLocaleDateString('pt-BR')}
+            </span>
+            <span data-testid={ testId[roleIds[role].orderValue] }>
+              {new Intl.NumberFormat(...brasil).format(order.totalPrice)}
+            </span>
           </div>
         </div>
-        { role === 'seller'
-        && <span data-testid={ testId[52] }> Endereço </span>}
+        { role === 'seller' && (
+          <span data-testid={ testId[52] }>
+            {`${order.deliveryAddress}, ${order.deliveryNumber}`}
+          </span>)}
       </div>
     </section>
   );
@@ -31,5 +43,12 @@ export default function OrderCard({ role, status }) {
 
 OrderCard.propTypes = {
   role: PropTypes.string.isRequired,
-  status: PropTypes.string.isRequired,
+  order: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    totalPrice: PropTypes.number.isRequired,
+    saleDate: PropTypes.string.isRequired,
+    deliveryAddress: PropTypes.string.isRequired,
+    deliveryNumber: PropTypes.number.isRequired,
+    status: PropTypes.string.isRequired,
+  }).isRequired,
 };
