@@ -13,6 +13,12 @@ const generateToken = (payload) => {
     return token;
 };
 
+const getUsers = async (role) => {
+    const list = await User.findAll({ where: { role }, attributes:['id','name']});
+    if (!list) return false;
+    return list;
+  } 
+
 const loginUser = async (password, email) => {
     const user = await User.findOne({ where: { email }, raw: true });
     if (!user) {
@@ -27,4 +33,4 @@ const loginUser = async (password, email) => {
     return { ...user, token };
 };
 
-module.exports = { loginUser };
+module.exports = { loginUser, getUsers };
