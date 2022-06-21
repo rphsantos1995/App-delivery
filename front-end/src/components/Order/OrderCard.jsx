@@ -28,7 +28,7 @@ export default function OrderCard({ role, order }) {
               {new Date(order.saleDate).toLocaleDateString('pt-BR')}
             </span>
             <span data-testid={ testId[roleIds[role].orderValue] }>
-              {new Intl.NumberFormat(...brasil).format(order.totalPrice)}
+              {new Intl.NumberFormat(...brasil).format(Number(order.totalPrice))}
             </span>
           </div>
         </div>
@@ -45,7 +45,7 @@ OrderCard.propTypes = {
   role: PropTypes.string.isRequired,
   order: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    totalPrice: PropTypes.number.isRequired,
+    totalPrice: PropTypes.string.isRequired,
     saleDate: PropTypes.string.isRequired,
     deliveryAddress: PropTypes.string.isRequired,
     deliveryNumber: PropTypes.number.isRequired,
