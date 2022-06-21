@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
   Sales.init({
     userId: DataTypes.INTEGER,
     sellerId: DataTypes.INTEGER,
-    totalPrice: DataTypes.INTEGER,
+    totalPrice: DataTypes.DECIMAL(10,2),
     deliveryAddress: DataTypes.STRING,
     deliveryNumber: DataTypes.INTEGER,
     saleDate: DataTypes.DATE,
