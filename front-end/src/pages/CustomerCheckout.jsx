@@ -25,7 +25,7 @@ export default function Checkout() {
       <h2>Finalizar pedido</h2>
       <div>
         <TableItens />
-        <ValueTotal />
+        <ValueTotal valueId={28}/>
       </div>
       <h2>Detalhes e Endereço para entrega</h2>
       <div>
