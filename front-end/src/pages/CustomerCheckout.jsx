@@ -44,7 +44,7 @@ export default function Checkout() {
         totalPrice,
         sellerId: selectedSeller,
         deliveryAddress: address,
-        deliveryAddress: addressNumber,
+        deliveryNumber: addressNumber,
         status: "Pendente"
       },
       products: cart.map(({ id, quantity }) => ({ productId: id, quantity })),
@@ -82,7 +82,7 @@ export default function Checkout() {
           name="Endereço"
           placeholder="Travessa Terceira da Castanheira, Bairro Murici"
           testId={ testId[30] }
-          change={ ({ target: { value } }) => setAdressNumber(value)}
+          change={ ({ target: { value } }) => setAdress(value)}
         />
         <Default
           id="address-num-input"
@@ -90,7 +90,7 @@ export default function Checkout() {
           name="Número"
           placeholder="198"
           testId={ testId[31] }
-          change={ ({ target: { value } }) => setAdress(value)}
+          change={ ({ target: { value } }) => setAdressNumber(value)}
         />
         <Buttons
           type="button"

@@ -8,11 +8,8 @@ import brasil from '../../helpers/formats';
 
 export default function OrderCard({ role, order }) {
   return (
-    <section className="order-card">
-      <p
-        data-testid={ testId[roleIds[role].orderNum] }
-        className="order-number"
-      >
+    <section className="order-card" data-testid={`${testId[roleIds[role].orderNum]}${order.id}`}>
+      <p className="order-number">
         Pedido
         <br />
         {String(order.id).padStart(four, '0')}
@@ -21,13 +18,13 @@ export default function OrderCard({ role, order }) {
         <div className="order-card-upper-right">
           <OrderStatus
             status={ order.status }
-            testIdNum={ testId[roleIds[role].orderStats] }
+            testIdNum={ `${testId[roleIds[role].orderStats]}${order.id}` }
           />
           <div className="order-card-info">
-            <span data-testid={ testId[roleIds[role].orderDate] }>
+            <span data-testid={ `${testId[roleIds[role].orderDate]}${order.id}` }>
               {new Date(order.saleDate).toLocaleDateString('pt-BR')}
             </span>
-            <span data-testid={ testId[roleIds[role].orderValue] }>
+            <span data-testid={ `${testId[roleIds[role].orderValue]}${order.id}` }>
               {new Intl.NumberFormat(...brasil).format(Number(order.totalPrice))}
             </span>
           </div>
@@ -48,7 +45,7 @@ OrderCard.propTypes = {
     totalPrice: PropTypes.string.isRequired,
     saleDate: PropTypes.string.isRequired,
     deliveryAddress: PropTypes.string.isRequired,
-    deliveryNumber: PropTypes.number.isRequired,
+    deliveryNumber: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
   }).isRequired,
 };

@@ -23,7 +23,7 @@ export default function Login() {
       case 'administrator':
         return Navigate('/admin/manage', { state: { role, name } });
       case 'seller':
-        return Navigate('/seller', { state: { role, name } });
+        return Navigate('/seller/orders', { state: { role, name } });
       default:
         return Navigate('/customer/products', { state: { role, name } });
       }

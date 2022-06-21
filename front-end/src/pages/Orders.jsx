@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import OrderCard from '../components/Order/OrderCard';
 import UserContext from '../context/UserContext';
@@ -31,11 +31,18 @@ export default function Orders() {
           <Navbar userRole={ role } />
           <section>
             {
-              orders.map((order) => (<OrderCard
+              orders.map((order) => (
+              <Link 
+              to={`/${role}/orders/${order.id}`}
+              key={ `order-${order.id}` }
+              >
+              <OrderCard
                 key={ `order-${order.id}` }
                 role={ role }
                 order={ order }
-              />))
+              />
+              </Link>
+              ))
             }
           </section>
         </div>

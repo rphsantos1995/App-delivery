@@ -15,8 +15,8 @@ function Navbar(props) {
     administrator: [[twelve, 'Gerenciar Usuarios']], // [testId, description]
     seller: [[twelve, 'Pedidos']],
     customer: [
-      [eleven, 'Produtos'],
-      [twelve, 'Meus Pedidos'],
+      [eleven, 'Produtos','products'],
+      [twelve, 'Meus Pedidos','orders'],
     ],
   };
   const currUser = useTokenUser().payload;
@@ -44,7 +44,7 @@ function Navbar(props) {
             testId={ testId[button[0]] }
             textButton={ button[1] }
             classButton="btn-0"
-            clicked={ () => null }
+            clicked={ () => Navigate(`/${userRole}/${button[2]}`) }
           />
         ))}
       </div>
