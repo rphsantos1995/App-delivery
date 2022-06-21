@@ -11,8 +11,8 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use(cors());
 
-app.get('/coffee', (_req, res) => res.status(418).end());
-app.use('/login', userRouter);
+// app.get('/coffee', (_req, res) => res.status(418).end());
+app.use('/', userRouter);
 app.use('/register', registerRouter);
 app.use('/products', productRouter);
 app.use('/sales', salesRouter);

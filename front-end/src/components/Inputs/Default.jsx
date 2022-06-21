@@ -22,5 +22,9 @@ Default.propTypes = {
   type: PropTypes.string.isRequired,
   testId: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  change: PropTypes.func.isRequired,
+  change: PropTypes.func,
+};
+
+Default.defaultProps = {
+  change: () => null,
 };

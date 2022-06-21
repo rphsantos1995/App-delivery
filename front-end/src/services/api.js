@@ -30,4 +30,10 @@ export const requestGet = async (endpoint) => {
   return data;
 };
 
+export const requestPost = async (endpoint, body, token) => api.post(endpoint, body, {
+  headers: {
+    authorization: token,
+  }
+});
+
 export default api;

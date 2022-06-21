@@ -29,7 +29,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       delivery_number: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       sale_date: {
         type: Sequelize.DATE

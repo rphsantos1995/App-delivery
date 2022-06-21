@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import testId from '../../helpers/dataTestIds';
 import Buttons from '../Buttons';
@@ -7,6 +7,7 @@ import ExitButton from './ExitButton';
 import User from './User';
 import useTokenUser from '../../helpers/useTokenUser';
 import { eleven, twelve } from '../../helpers/numbers';
+import UserContext from '../../context/UserContext';
 
 function Navbar(props) {
   const { userRole } = props;
@@ -14,13 +15,13 @@ function Navbar(props) {
     administrator: [[twelve, 'Gerenciar Usuarios']], // [testId, description]
     seller: [[twelve, 'Pedidos']],
     customer: [
-      [eleven, 'Produtos'],
-      [twelve, 'Meus Pedidos'],
+      [eleven, 'Produtos','products'],
+      [twelve, 'Meus Pedidos','orders'],
     ],
   };
   const currUser = useTokenUser().payload;
   const Navigate = useNavigate();
-  const [thisUser, setThisUser] = useState();
+  const { currentUser, setCurrentUser } = useContext(UserContext);
 
   const onMount = [() => {
     const localStorageUser = JSON.parse(localStorage.getItem('user'));
@@ -28,13 +29,12 @@ function Navbar(props) {
     if (currUser) {
       const username = localStorageUser.name;
       const { role } = currUser;
-      setThisUser({ ...currUser, name: username });
+      setCurrentUser({ ...currUser, name: username });
       return role !== userRole && Navigate('/login');
     }
   }, [currUser]];
 
   useEffect(...onMount);
-
   return (
     <nav>
       <div>
@@ -44,17 +44,22 @@ function Navbar(props) {
             testId={ testId[button[0]] }
             textButton={ button[1] }
             classButton="btn-0"
-            clicked={ () => null }
+            clicked={ () => Navigate(`/${userRole}/${button[2]}`) }
           />
         ))}
       </div>
       <div>
-        { thisUser
-        && <User
-          testId={ testId[13] }
-          name={ thisUser.name }
-        />}
-        <ExitButton clicked={ () => localStorage.clear() } />
+        { currentUser
+          && <User
+            testId={ testId[13] }
+            name={ currentUser.name || '' }
+          />}
+        <ExitButton
+          clicked={ () => {
+            setCurrentUser({});
+            localStorage.clear();
+          } }
+        />
       </div>
     </nav>
   );

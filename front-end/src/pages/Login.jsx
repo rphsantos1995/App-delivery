@@ -23,7 +23,7 @@ export default function Login() {
       case 'administrator':
         return Navigate('/admin/manage', { state: { role, name } });
       case 'seller':
-        return Navigate('/seller', { state: { role, name } });
+        return Navigate('/seller/orders', { state: { role, name } });
       default:
         return Navigate('/customer/products', { state: { role, name } });
       }
@@ -49,9 +49,11 @@ export default function Login() {
     }
   };
 
-  const setLocalStorage = ({ token, name, email: usermail, role }) => {
+  const setLocalStorage = ({ token, name, email: usermail, role, id }) => {
     localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify({ name, email: usermail, role, token }));
+    localStorage.setItem('user', JSON.stringify(
+      { id, name, email: usermail, role, token },
+    ));
   };
 
   const login = async (event) => {
