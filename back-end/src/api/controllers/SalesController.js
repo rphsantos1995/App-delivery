@@ -1,6 +1,6 @@
 const StatusCodes = require('http-status-codes');
 const errorMessages = require('../../database/helpers/errorMessages');
-const { createSale, getSales } = require('../services/salesService');
+const { createSale, getSales, getSaleById } = require('../services/salesService');
 
 const create = async (req, res) => {
  try {
@@ -23,4 +23,15 @@ const read = async (req, res) => {
  }
 };
 
-module.exports = { create, read };
+const readOne = async (req, res) => {
+ try {
+   const { id } = req.params;
+   const sale = await getSaleById(id);
+   return res.status(StatusCodes.OK).json(sale);
+ } catch (e) {
+    console.log(e);
+     return res.status(StatusCodes.UNAUTHORIZED).json({ message: errorMessages.UNAUTHORIZED });
+ }
+};
+
+module.exports = { create, read, readOne };
