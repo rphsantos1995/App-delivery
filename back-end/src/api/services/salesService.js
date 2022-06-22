@@ -46,4 +46,10 @@ const getSaleById = async (id) => {
   return sales;
 };
 
-module.exports = { createSale, getSales, getSaleById };
+const updateSaleStatus = async (id, status) => {
+  const sale = await Sales.findByPk(id, { attributes: ['id', 'status'] });
+  await sale.update({ status });
+  return sale;
+};
+
+module.exports = { createSale, getSales, getSaleById, updateSaleStatus };
