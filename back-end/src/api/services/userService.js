@@ -14,10 +14,10 @@ const generateToken = (payload) => {
 };
 
 const getUsers = async (role) => {
-    const list = await User.findAll({ where: { role }, attributes:['id','name']});
+    const list = await User.findAll({ where: { role }, attributes: ['id', 'name'] });
     if (!list) return false;
     return list;
-  } 
+  }; 
 
 const loginUser = async (password, email) => {
     const user = await User.findOne({ where: { email }, raw: true });

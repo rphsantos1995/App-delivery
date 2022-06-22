@@ -8,7 +8,10 @@ import brasil from '../../helpers/formats';
 
 export default function OrderCard({ role, order }) {
   return (
-    <section className="order-card" data-testid={`${testId[roleIds[role].orderNum]}${order.id}`}>
+    <section
+      className="order-card"
+      data-testid={ `${testId[roleIds[role].orderNum]}${order.id}` }
+    >
       <p className="order-number">
         Pedido
         <br />

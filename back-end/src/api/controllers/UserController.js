@@ -27,7 +27,7 @@ const login = async (req, res) => {
 };
 
 const listUsers = async (req, res) => {
-    const {role = "seller"} = req.query;
+    const { role = 'seller' } = req.query;
     try {
         const list = await getUsers(role);
         if (!list) return res.status(NOT_FOUND).json({ message: NF });
@@ -36,6 +36,6 @@ const listUsers = async (req, res) => {
         console.log(error);
         return res.status(INTERNAL_SERVER_ERROR).json({ message: INTERNAL });
     }
-}
+};
 
 module.exports = { login, listUsers };

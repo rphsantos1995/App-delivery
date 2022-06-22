@@ -33,7 +33,7 @@ export const requestGet = async (endpoint) => {
 export const requestPost = async (endpoint, body, token) => api.post(endpoint, body, {
   headers: {
     authorization: token,
-  }
+  },
 });
 
 export default api;
