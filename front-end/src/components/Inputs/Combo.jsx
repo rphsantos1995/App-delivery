@@ -21,9 +21,11 @@ Combo.propTypes = {
     name: PropTypes.string.isRequired,
     itens: PropTypes.arrayOf(
       PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired
-    })),
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+      }),
+    ),
     testId: PropTypes.string.isRequired,
+    change: PropTypes.func,
   }).isRequired,
 };
