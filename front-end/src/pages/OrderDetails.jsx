@@ -52,7 +52,7 @@ export default function OrderDetails() {
         textButton="Preparar Pedido"
         classButton="btn-1"
         clicked={ () => updateOrder('Preparando') }
-        disabled={ order.status === 'Preparando' }
+        disabled={ order.status !== 'Pendente' }
       />,
       <Buttons
         key="btn-0"
@@ -60,7 +60,7 @@ export default function OrderDetails() {
         textButton="Saiu para entrega"
         classButton="btn-0"
         clicked={ () => updateOrder('Em trânsito') }
-        disabled={ order.status === 'Em trânsito' }
+        disabled={ order.status !== 'Preparando' }
       />,
     ],
     customer: [
@@ -70,7 +70,7 @@ export default function OrderDetails() {
         textButton="Marcar como entregue"
         classButton="btn-1"
         clicked={ () => updateOrder('Entregue') }
-        disabled={ order.status === 'Entregue' }
+        disabled={ order.status !== 'Em trânsito' }
       />,
     ],
   };
