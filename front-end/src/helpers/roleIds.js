@@ -1,4 +1,4 @@
-module.exports = {
+const OrderRoleIds = {
   customer: {
     orderNum: 33,
     orderStats: 34,
@@ -12,3 +12,28 @@ module.exports = {
     orderValue: 51,
   },
 };
+
+const DetailRoleIds = {
+  customer: {
+    orderNum: 37,
+    orderDate: 39,
+    orderStatus: 40,
+    itemNumber: 41,
+    itemDescr: 42,
+    itemQty: 43,
+    itemUnitValue: 44,
+    itemSubTotal: 45,
+  },
+  seller: {
+    orderNum: 54,
+    orderDate: 56,
+    orderStatus: 55,
+    itemNumber: 59,
+    itemDescr: 60,
+    itemQty: 61,
+    itemUnitValue: 62,
+    itemSubTotal: 63,
+  },
+};
+
+module.exports = { OrderRoleIds, DetailRoleIds };

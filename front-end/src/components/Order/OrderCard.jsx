@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import testId from '../../helpers/dataTestIds';
 import OrderStatus from './OrderStatus';
-import roleIds from '../../helpers/roleIds';
+import { OrderRoleIds } from '../../helpers/roleIds';
 import { four } from '../../helpers/numbers';
 import brasil from '../../helpers/formats';
 
@@ -10,7 +10,7 @@ export default function OrderCard({ role, order }) {
   return (
     <section
       className="order-card"
-      data-testid={ `${testId[roleIds[role].orderNum]}${order.id}` }
+      data-testid={ `${testId[OrderRoleIds[role].orderNum]}${order.id}` }
     >
       <p className="order-number">
         Pedido
@@ -21,13 +21,13 @@ export default function OrderCard({ role, order }) {
         <div className="order-card-upper-right">
           <OrderStatus
             status={ order.status }
-            testIdNum={ `${testId[roleIds[role].orderStats]}${order.id}` }
+            testIdNum={ `${testId[OrderRoleIds[role].orderStats]}${order.id}` }
           />
           <div className="order-card-info">
-            <span data-testid={ `${testId[roleIds[role].orderDate]}${order.id}` }>
+            <span data-testid={ `${testId[OrderRoleIds[role].orderDate]}${order.id}` }>
               {new Date(order.saleDate).toLocaleDateString('pt-BR')}
             </span>
-            <span data-testid={ `${testId[roleIds[role].orderValue]}${order.id}` }>
+            <span data-testid={ `${testId[OrderRoleIds[role].orderValue]}${order.id}` }>
               {new Intl.NumberFormat(...brasil).format(Number(order.totalPrice))}
             </span>
           </div>
