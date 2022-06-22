@@ -17,14 +17,14 @@ export default function Register() {
   const user = useTokenUser();
   const Navigate = useNavigate();
 
-  useEffect(() => {
+  const redirectPage = () => {
     if (user.payload) {
       const { role, name } = user.payload;
       return Navigate('/customer/products', { state: { role, name } });
     }
-  },
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  [user, isLogged, failedRegister]);
+  };
+
+  useEffect(redirectPage, [user, isLogged, failedRegister]);
 
   const handleChange = ({ target }) => {
     const { id, value } = target;
