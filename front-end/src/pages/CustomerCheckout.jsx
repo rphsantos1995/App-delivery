@@ -13,7 +13,7 @@ import Navbar from '../components/Navbar';
 import { requestGet, requestPost } from '../services/api';
 
 export default function Checkout() {
-  const { cart, setAllTotalPrice } = useContext(ProductsContext);
+  const { cart, allTotalPrice, setAllTotalPrice } = useContext(ProductsContext);
   const { currentUser } = useContext(UserContext);
   const Navigate = useNavigate();
   const [address, setAdress] = useState('');
@@ -51,6 +51,7 @@ export default function Checkout() {
     try {
       const token = localStorage.getItem('token');
       const { data } = await requestPost('sales', body, token);
+      localStorage.removeItem('cart');
       return Navigate(`/customer/orders/${data.id}`);
     } catch (e) {
       console.log(e);
@@ -63,7 +64,7 @@ export default function Checkout() {
       <h2>Finalizar pedido</h2>
       <div>
         <TableItens />
-        <ValueTotal valueId={ 28 } />
+        <ValueTotal testId={ testId[28] } allTotalPrice={ String(allTotalPrice) } />
       </div>
       <h2>Detalhes e Endereço para entrega</h2>
       <div>

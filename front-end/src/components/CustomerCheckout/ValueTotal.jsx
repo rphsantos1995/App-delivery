@@ -1,18 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import ProductsContext from '../../context/ProductsContext';
 
-export default function ValueTotal({ testId }) {
-  const { allTotalPrice } = useContext(ProductsContext);
-
+export default function ValueTotal({ testId, allTotalPrice }) {
   return (
     <span data-testid={ testId }>
       Valor:
-      { allTotalPrice }
+      { allTotalPrice.replace('.', ',') }
     </span>
   );
 }
 
 ValueTotal.propTypes = {
   testId: PropTypes.string.isRequired,
+  allTotalPrice: PropTypes.string.isRequired,
 };

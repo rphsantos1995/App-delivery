@@ -25,6 +25,12 @@ export default function OrderDetails() {
     itemQty, itemUnitValue, itemSubTotal, itemDescr, orderTotal,
   } = DetailRoleIds[role];
 
+  // const obj = DetailRoleIds[role];
+
+  // const teste = Object.keys(obj).map((k) => ({ [k]: `${obj[k]} - ${testId[obj[k]]}` }));
+
+  // console.log(teste);
+
   const requestOrder = async () => {
     if (currentUser) {
       const endpoint = `/sales/${orderId}`;
@@ -44,11 +50,20 @@ export default function OrderDetails() {
       .then(requestOrder);
   };
 
+  useEffect(() => {
+    if (cart.length > 0) {
+      const sum = sumTotalPriceCart(cart);
+      setAllTotalPrice(sum);
+    } else {
+      setAllTotalPrice(0);
+    }
+  }, [cart, setAllTotalPrice]);
+
   const buttons = {
     seller: [
       <Buttons
         key="btn-1"
-        testId={ testId[57] }
+        testId={ testId[56] }
         textButton="Preparar Pedido"
         classButton="btn-1"
         clicked={ () => updateOrder('Preparando') }
@@ -56,10 +71,10 @@ export default function OrderDetails() {
       />,
       <Buttons
         key="btn-0"
-        testId={ testId[58] }
+        testId={ testId[57] }
         textButton="Saiu para entrega"
         classButton="btn-0"
-        clicked={ () => updateOrder('Em trânsito') }
+        clicked={ () => updateOrder('Em Trânsito') }
         disabled={ order.status !== 'Preparando' }
       />,
     ],
@@ -70,19 +85,10 @@ export default function OrderDetails() {
         textButton="Marcar como entregue"
         classButton="btn-1"
         clicked={ () => updateOrder('Entregue') }
-        disabled={ order.status !== 'Em trânsito' }
+        disabled={ order.status !== 'Em Trânsito' }
       />,
     ],
   };
-
-  useEffect(() => {
-    if (cart.length > 0) {
-      const sum = sumTotalPriceCart(cart);
-      setAllTotalPrice(sum);
-    } else {
-      setAllTotalPrice(0);
-    }
-  }, [cart, setAllTotalPrice]);
 
   return (
     <main>
@@ -90,59 +96,64 @@ export default function OrderDetails() {
       <h1>Detalhes do Produto</h1>
       {Object.keys(order).includes('seller') && (
         <div>
-          <span>
-            <p>Pedido</p>
-            <p data-testid={ testId[orderNum] }>
-              {String(order.id).padStart(four, '0')}
-            </p>
-          </span>
-          { role === 'customer' && (
+          <div>
             <span>
-              <p>P.Vendedora</p>
-              <p data-testid={ testId[38] }>{order.seller.name}</p>
+              <p>Pedido</p>
+              <p data-testid={ testId[orderNum] }>
+                {String(order.id).padStart(four, '0')}
+              </p>
             </span>
-          )}
-          <span>
-            <p>Data</p>
-            <p data-testid={ testId[orderDate] }>
-              {new Date(order.saleDate).toLocaleDateString('pt-BR')}
-            </p>
-          </span>
-          <span data-testid={ testId[orderStatus] }>{order.status}</span>
-          { buttons[role] }
+            { role === 'customer' && (
+              <span>
+                <p>P.Vendedora</p>
+                <p data-testid={ testId[38] }>{order.seller.name}</p>
+              </span>
+            )}
+            <span>
+              <p>Data</p>
+              <p data-testid={ testId[orderDate] }>
+                {new Date(order.saleDate).toLocaleDateString('pt-BR')}
+              </p>
+            </span>
+            <span data-testid={ testId[orderStatus] }>{order.status}</span>
+            { buttons[role] }
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Descrição</th>
+                <th>Quantidade</th>
+                <th>Valor Unitátio</th>
+                <th>Sub Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {order.products.map(
+                ({ id, name, SalesProducts: { quantity }, price }, index) => (
+                  <tr key={ id }>
+                    <td data-testid={ `${testId[itemNumber]}-${index}` }>{index + 1}</td>
+                    <td data-testid={ `${testId[itemDescr]}-${index}` }>{name}</td>
+                    <td data-testid={ `${testId[itemQty]}-${index}` }>{quantity}</td>
+                    <td data-testid={ `${testId[itemUnitValue]}-${index}` }>
+                      {(price).replace('.', ',')}
+                    </td>
+                    <td data-testid={ `${testId[itemSubTotal]}-${index}` }>
+                      {
+                        (Number(price) * Number(quantity))
+                          .toFixed(2)
+                          .replace('.', ',')
+                      }
+                    </td>
+                  </tr>
+                ),
+              )}
+            </tbody>
+          </table>
+          <ValueTotal testId={ testId[orderTotal] } allTotalPrice={ order.totalPrice } />
         </div>
       )}
-      <table>
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Descrição</th>
-            <th>Quantidade</th>
-            <th>Valor Unitátio</th>
-            <th>Sub Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          {cart.map(({ id, name, quantity, price }, index) => (
-            <tr key={ id }>
-              <td data-testid={ `${testId[itemNumber]}-${index}` }>{index + 1}</td>
-              <td data-testid={ `${testId[itemDescr]}-${index}` }>{name}</td>
-              <td data-testid={ `${testId[itemQty]}-${index}` }>{quantity}</td>
-              <td data-testid={ `${testId[itemUnitValue]}-${index}` }>
-                {(price).replace('.', ',')}
-              </td>
-              <td data-testid={ `${testId[itemSubTotal]}-${index}` }>
-                {
-                  (price * quantity)
-                    .toFixed(2)
-                    .replace('.', ',')
-                }
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <ValueTotal testId={ testId[orderTotal] } />
     </main>
   );
 }

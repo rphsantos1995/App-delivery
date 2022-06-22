@@ -16,15 +16,17 @@ function App() {
     <UserProvider>
       <ProductsProvider>
         <Routes>
-          <Route exact path="/register" element={ <Register /> } />
-          <Route exact path="/seller/orders" element={ <Orders /> } />
-          <Route exact path="/seller/orders/:id" element={ <OrderDetails /> } />
-          <Route exact path="/customer/products" element={ <Products /> } />
-          <Route exact path="/customer/checkout" element={ <CustomerCheckout /> } />
-          <Route exact path="/customer/orders" element={ <Orders /> } />
-          <Route exact path="/customer/orders/:id" element={ <OrderDetails /> } />
-          <Route exact path="/login" element={ <Login /> } />
-          <Route exact path="/admin/manage" element={ <Manager /> } />
+          <Route path="/register" element={ <Register /> } />
+          <Route path="/seller" element={ <Navigate to="/seller/orders" /> } />
+          <Route path="/seller/orders" element={ <Orders /> } />
+          <Route path="/seller/orders/:id" element={ <OrderDetails /> } />
+          <Route path="/customer" element={ <Navigate to="/customer/products" /> } />
+          <Route path="/customer/products" element={ <Products /> } />
+          <Route path="/customer/checkout" element={ <CustomerCheckout /> } />
+          <Route path="/customer/orders" element={ <Orders /> } />
+          <Route path="/customer/orders/:id" element={ <OrderDetails /> } />
+          <Route path="/login" element={ <Login /> } />
+          <Route path="/admin/manage" element={ <Manager /> } />
           <Route exact path="/" element={ <Navigate to="/login" /> } />
         </Routes>
       </ProductsProvider>
