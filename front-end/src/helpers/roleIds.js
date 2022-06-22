@@ -21,9 +21,9 @@ const DetailRoleIds = {
     itemNumber: 41,
     itemDescr: 42,
     itemQty: 43,
-    itemUnitValue: 44,
-    itemSubTotal: 45,
-    orderTotal: 46,
+    itemUnitValue: 46,
+    itemSubTotal: 44,
+    orderTotal: 45,
   },
   seller: {
     orderNum: 54,

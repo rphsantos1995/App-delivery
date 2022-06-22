@@ -88,7 +88,7 @@ export default function OrderDetails() {
     <main>
       <Navbar userRole={ role } />
       <h1>Detalhes do Produto</h1>
-      {order && (
+      {Object.keys(order).includes('seller') && (
         <div>
           <span>
             <p>Pedido</p>
