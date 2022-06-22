@@ -18,11 +18,11 @@ export default function OrderDetails() {
 
   const path = useLocation().pathname;
   const role = path.slice(1).split(/[/]/)[0];
-  const [order, setOrder] = useState([]);
+  const [order, setOrder] = useState(null);
 
   const {
     orderNum, orderDate, orderStatus, itemNumber,
-    itemQty, itemUnitValue, itemSubTotal, itemDescr,
+    itemQty, itemUnitValue, itemSubTotal, itemDescr, orderTotal,
   } = DetailRoleIds[role];
 
   const buttons = {
@@ -32,14 +32,14 @@ export default function OrderDetails() {
         testId={ testId[58] }
         textButton="Saiu para entrega"
         classButton="btn-0"
-        clicked={ () => null }
+        clicked={ () => requestPost('/') }
       />,
       <Buttons
         key="btn-1"
         testId={ testId[57] }
         textButton="Preparar Pedido"
         classButton="btn-1"
-        clicked={ () => null }
+        clicked={ () => requestPost('/') }
       />,
     ],
     customer: [
@@ -48,7 +48,7 @@ export default function OrderDetails() {
         testId={ testId[47] }
         textButton="Marcar como entregue"
         classButton="btn-1"
-        clicked={ () => null }
+        clicked={ () => requestPost('/') }
       />,
     ],
   };
@@ -91,7 +91,7 @@ export default function OrderDetails() {
           { role === 'customer' && (
             <span>
               <p>P.Vendedora</p>
-              <p data-testid={ testId[38] }>{order.sellerId}</p>
+              <p data-testid={ testId[38] }>{order.seller.name}</p>
             </span>
           )}
           <span>
@@ -123,7 +123,7 @@ export default function OrderDetails() {
               <td data-testid={ `${testId[itemUnitValue]}-${index}` }>
                 {(price).replace('.', ',')}
               </td>
-              <td data-testid={ `${itemSubTotal}-${index}` }>
+              <td data-testid={ `${testId[itemSubTotal]}-${index}` }>
                 {
                   (price * quantity)
                     .toFixed(2)
@@ -134,7 +134,7 @@ export default function OrderDetails() {
           ))}
         </tbody>
       </table>
-      <ValueTotal valueId={ 46 } />
+      <ValueTotal testId={ testId[orderTotal] } />
     </main>
   );
 }

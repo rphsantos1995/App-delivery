@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import ProductsContext from '../../context/ProductsContext';
-import testId from '../../helpers/dataTestIds';
+import testIds from '../../helpers/dataTestIds';
 
-export default function ValueTotal({ valueId }) {
+export default function ValueTotal({ testId }) {
   const { allTotalPrice } = useContext(ProductsContext);
 
   return (
-    <span data-testid={ testId[valueId] }>
+    <span data-testid={ testIds[testId] }>
       Valor:
       { allTotalPrice }
     </span>
@@ -15,5 +15,5 @@ export default function ValueTotal({ valueId }) {
 }
 
 ValueTotal.propTypes = {
-  valueId: PropTypes.number.isRequired,
+  testId: PropTypes.string.isRequired,
 };
