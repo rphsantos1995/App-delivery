@@ -25,12 +25,6 @@ export default function OrderDetails() {
     itemQty, itemUnitValue, itemSubTotal, itemDescr, orderTotal,
   } = DetailRoleIds[role];
 
-  // const obj = DetailRoleIds[role];
-
-  // const teste = Object.keys(obj).map((k) => ({ [k]: `${obj[k]} - ${testId[obj[k]]}` }));
-
-  // console.log(teste);
-
   const requestOrder = async () => {
     if (currentUser) {
       const endpoint = `/sales/${orderId}`;
