@@ -1,6 +1,6 @@
 const StatusCodes = require('http-status-codes');
 const errorMessages = require('../../database/helpers/errorMessages');
-const { createSale, getSales, getSaleById } = require('../services/salesService');
+const { createSale, getSales, getSaleById, updateSaleStatus } = require('../services/salesService');
 
 const create = async (req, res) => {
  try {
@@ -19,7 +19,8 @@ const read = async (req, res) => {
    return res.status(StatusCodes.OK).json(sales);
  } catch (e) {
     console.log(e);
-     return res.status(StatusCodes.UNAUTHORIZED).json({ message: errorMessages.UNAUTHORIZED });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: errorMessages.INTERNAL_SERVER_ERROR });
  }
 };
 
@@ -30,8 +31,22 @@ const readOne = async (req, res) => {
    return res.status(StatusCodes.OK).json(sale);
  } catch (e) {
     console.log(e);
-     return res.status(StatusCodes.UNAUTHORIZED).json({ message: errorMessages.UNAUTHORIZED });
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: errorMessages.INTERNAL_SERVER_ERROR });
  }
 };
 
-module.exports = { create, read, readOne };
+const updateStatus = async (req, res) => {
+ try {
+   const { id } = req.params;
+   const { status } = req.body;
+   const sale = await updateSaleStatus(id, status);
+   return res.status(StatusCodes.CREATED).json(sale);
+ } catch (e) {
+    console.log(e);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: errorMessages.INTERNAL_SERVER_ERROR });
+ }
+};
+
+module.exports = { create, read, readOne, updateStatus };
