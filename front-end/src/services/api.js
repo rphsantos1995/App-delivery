@@ -36,4 +36,10 @@ export const requestPost = async (endpoint, body, token) => api.post(endpoint, b
   },
 });
 
+export const requestPut = async (endpoint, body, token) => api.put(endpoint, body, {
+  headers: {
+    authorization: token,
+  },
+});
+
 export default api;

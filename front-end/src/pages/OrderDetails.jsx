@@ -6,7 +6,7 @@ import ProductsContext from '../context/ProductsContext';
 import testId from '../helpers/dataTestIds';
 import sumTotalPriceCart from '../utils/sumTotalPriceCart';
 import UserContext from '../context/UserContext';
-import { requestGet } from '../services/api';
+import { requestGet, requestPut } from '../services/api';
 import { four } from '../helpers/numbers';
 import { DetailRoleIds } from '../helpers/roleIds';
 import Buttons from '../components/Buttons';
@@ -25,21 +25,42 @@ export default function OrderDetails() {
     itemQty, itemUnitValue, itemSubTotal, itemDescr,
   } = DetailRoleIds[role];
 
+  const requestOrder = async () => {
+    if (currentUser) {
+      const endpoint = `/sales/${orderId}`;
+      const userOrders = await requestGet(endpoint);
+      if (Object.keys(userOrders).includes('data')) {
+        setOrder(userOrders.data);
+      }
+    }
+  };
+
+  useEffect(requestOrder, [currentUser]);
+
+  const updateOrder = (status) => {
+    const endpoint = `/sales/${orderId}`;
+    const body = { status };
+    requestPut(endpoint, body)
+      .then(requestOrder);
+  };
+
   const buttons = {
     seller: [
-      <Buttons
-        key="btn-0"
-        testId={ testId[58] }
-        textButton="Saiu para entrega"
-        classButton="btn-0"
-        clicked={ () => null }
-      />,
       <Buttons
         key="btn-1"
         testId={ testId[57] }
         textButton="Preparar Pedido"
         classButton="btn-1"
-        clicked={ () => null }
+        clicked={ () => updateOrder('Preparando') }
+        disabled={ order.status === 'Preparando' }
+      />,
+      <Buttons
+        key="btn-0"
+        testId={ testId[58] }
+        textButton="Saiu para entrega"
+        classButton="btn-0"
+        clicked={ () => updateOrder('Em trânsito') }
+        disabled={ order.status === 'Em trânsito' }
       />,
     ],
     customer: [
@@ -48,24 +69,11 @@ export default function OrderDetails() {
         testId={ testId[47] }
         textButton="Marcar como entregue"
         classButton="btn-1"
-        clicked={ () => null }
+        clicked={ () => updateOrder('Entregue') }
+        disabled={ order.status === 'Entregue' }
       />,
     ],
   };
-
-  const onMount = [async () => {
-    if (currentUser) {
-      const { id } = currentUser;
-      const endpoint = `/sales?id=${id}&role=${role}`;
-      const userOrders = await requestGet(endpoint);
-      if (Object.keys(userOrders).includes('data')) {
-        setOrder(userOrders.data
-          .find((thisOrder) => Number(thisOrder.id) === Number(orderId)));
-      }
-    }
-  }, [currentUser]];
-
-  useEffect(...onMount);
 
   useEffect(() => {
     if (cart.length > 0) {
@@ -100,7 +108,7 @@ export default function OrderDetails() {
               {new Date(order.saleDate).toLocaleDateString('pt-BR')}
             </p>
           </span>
-          <span data-testid={ testId[orderStatus] }>Entregue</span>
+          <span data-testid={ testId[orderStatus] }>{order.status}</span>
           { buttons[role] }
         </div>
       )}
