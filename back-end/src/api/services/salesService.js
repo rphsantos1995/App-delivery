@@ -23,7 +23,11 @@ const getSales = async (id, role) => {
   const isAdmin = role === 'administrador';
   const isSeller = role === 'seller';
   const sales = await Sales.findAll({
-    include: 'products',
+    include: [
+      { association: 'seller', attributes: ['name'] },
+      'products',
+    ],
+    attributes: { exclude: ['seller_id', 'user_id'] },
     where: isAdmin ? {} : {
       [isSeller ? 'sellerId' : 'userId']: id,
     },
@@ -31,4 +35,21 @@ const getSales = async (id, role) => {
   return sales;
 };
 
-module.exports = { createSale, getSales };
+const getSaleById = async (id) => {
+  const sales = await Sales.findByPk(id, {
+    include: [
+      { association: 'seller', attributes: ['name'] },
+      'products',
+    ],
+    attributes: { exclude: ['seller_id', 'user_id'] },
+  });
+  return sales;
+};
+
+const updateSaleStatus = async (id, status) => {
+  const sale = await Sales.findByPk(id, { attributes: ['id', 'status'] });
+  await sale.update({ status });
+  return sale;
+};
+
+module.exports = { createSale, getSales, getSaleById, updateSaleStatus };

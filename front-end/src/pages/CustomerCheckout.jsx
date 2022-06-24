@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Buttons from '../components/Buttons';
 import TableItens from '../components/CustomerCheckout/TableItens';
 import ValueTotal from '../components/CustomerCheckout/ValueTotal';
@@ -13,9 +13,8 @@ import Navbar from '../components/Navbar';
 import { requestGet, requestPost } from '../services/api';
 
 export default function Checkout() {
-  const { cart, setAllTotalPrice } = useContext(ProductsContext);
+  const { cart, allTotalPrice, setAllTotalPrice } = useContext(ProductsContext);
   const { currentUser } = useContext(UserContext);
-  const endpoint = '/sales';
   const Navigate = useNavigate();
   const [address, setAdress] = useState('');
   const [addressNumber, setAdressNumber] = useState(null);
@@ -25,7 +24,7 @@ export default function Checkout() {
   useEffect(() => {
     requestGet('/users?role=seller')
       .then(({ data }) => {
-          setSellers(data)
+        setSellers(data);
       });
     if (cart.length > 0) {
       const sum = sumTotalPriceCart(cart);
@@ -39,32 +38,33 @@ export default function Checkout() {
     // event.preventDefault();
     const totalPrice = cart.reduce((a, c) => a + (c.price * c.quantity), 0).toFixed(2);
     const body = {
-        saleInfo: {
+      saleInfo: {
         userId: currentUser.id,
         totalPrice,
         sellerId: selectedSeller,
         deliveryAddress: address,
         deliveryNumber: addressNumber,
-        status: "Pendente"
+        status: 'Pendente',
       },
       products: cart.map(({ id, quantity }) => ({ productId: id, quantity })),
-    }
+    };
     try {
-    const token = localStorage.getItem('token');
-    const { data } = await requestPost('sales', body, token);
-    return Navigate(`/customer/orders/${data.id}`);
+      const token = localStorage.getItem('token');
+      const { data } = await requestPost('sales', body, token);
+      localStorage.removeItem('cart');
+      return Navigate(`/customer/orders/${data.id}`);
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   return (
     <main>
-      <Navbar userRole="customer"/>
+      <Navbar userRole="customer" />
       <h2>Finalizar pedido</h2>
       <div>
         <TableItens />
-        <ValueTotal valueId={28}/>
+        <ValueTotal testId={ testId[28] } allTotalPrice={ String(allTotalPrice) } />
       </div>
       <h2>Detalhes e Endereço para entrega</h2>
       <div>
@@ -73,7 +73,7 @@ export default function Checkout() {
             name: 'P. Vendedora Responsável',
             itens: sellers,
             testId: testId[29],
-            change: ({ target: { value } }) => setSeller(value)
+            change: ({ target: { value } }) => setSeller(value),
           } }
         />
         <Default
@@ -82,7 +82,7 @@ export default function Checkout() {
           name="Endereço"
           placeholder="Travessa Terceira da Castanheira, Bairro Murici"
           testId={ testId[30] }
-          change={ ({ target: { value } }) => setAdress(value)}
+          change={ ({ target: { value } }) => setAdress(value) }
         />
         <Default
           id="address-num-input"
@@ -90,13 +90,13 @@ export default function Checkout() {
           name="Número"
           placeholder="198"
           testId={ testId[31] }
-          change={ ({ target: { value } }) => setAdressNumber(value)}
+          change={ ({ target: { value } }) => setAdressNumber(value) }
         />
         <Buttons
           type="button"
           testId={ testId[32] }
           textButton="Finalizar Pedido"
-          classButton='btn-0'
+          classButton="btn-0"
           clicked={ checkoutOrder }
           disabled={ !(addressNumber && address.length && cart.length) }
         />

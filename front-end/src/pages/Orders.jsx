@@ -32,16 +32,16 @@ export default function Orders() {
           <section>
             {
               orders.map((order) => (
-              <Link 
-              to={`/${role}/orders/${order.id}`}
-              key={ `order-${order.id}` }
-              >
-              <OrderCard
-                key={ `order-${order.id}` }
-                role={ role }
-                order={ order }
-              />
-              </Link>
+                <Link
+                  to={ `/${role}/orders/${order.id}` }
+                  key={ `order-${order.id}` }
+                >
+                  <OrderCard
+                    key={ `order-${order.id}` }
+                    role={ role }
+                    order={ order }
+                  />
+                </Link>
               ))
             }
           </section>

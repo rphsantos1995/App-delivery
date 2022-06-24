@@ -1,19 +1,16 @@
-import React, { useContext } from 'react';
-import ProductsContext from '../../context/ProductsContext';
-import testId from '../../helpers/dataTestIds';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function ValueTotal({ valueId }) {
-  const { allTotalPrice } = useContext(ProductsContext);
-
+export default function ValueTotal({ testId, allTotalPrice }) {
   return (
-    <span data-testid={ testId[valueId] }>
+    <span data-testid={ testId }>
       Valor:
-      { allTotalPrice }
+      { allTotalPrice.replace('.', ',') }
     </span>
   );
 }
 
 ValueTotal.propTypes = {
-  valueId: PropTypes.number.isRequired,
+  testId: PropTypes.string.isRequired,
+  allTotalPrice: PropTypes.string.isRequired,
 };

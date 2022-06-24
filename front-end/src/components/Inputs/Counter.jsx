@@ -8,11 +8,12 @@ export default function Counter({ index, product }) {
   const [quantity, setQuantity] = useState(0);
   const { cart, setCart } = useContext(ProductsContext);
 
-  useEffect(() => {
+  const updateCartQuantity = () => {
     const found = cart.find(({ id }) => id === product.id);
     if (found) setQuantity(found.quantity);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [product.id]);
+  };
+
+  useEffect(updateCartQuantity, [product.id]);
 
   useEffect(() => {
     if (cart.length > 0) {

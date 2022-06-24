@@ -15,8 +15,8 @@ function Navbar(props) {
     administrator: [[twelve, 'Gerenciar Usuarios']], // [testId, description]
     seller: [[twelve, 'Pedidos']],
     customer: [
-      [eleven, 'Produtos','products'],
-      [twelve, 'Meus Pedidos','orders'],
+      [eleven, 'Produtos', 'products'],
+      [twelve, 'Meus Pedidos', 'orders'],
     ],
   };
   const currUser = useTokenUser().payload;
