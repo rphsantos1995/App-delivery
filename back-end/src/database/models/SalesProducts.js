@@ -10,19 +10,20 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      models.Products.belongsToMany(models.Sales, { through: 'sales_products', foreignKey: 'product_id' });
-      models.Sales.belongsToMany(models.Products, { through: 'sales_products', foreignKey: 'sale_id' });
+      models.Products.belongsToMany(models.Sales, { through: this, as: 'sales' });
+      models.Sales.belongsToMany(models.Products, { through: this, as: 'products' });
     }
   }
   SalesProducts.init({
-    sale_id: DataTypes.INTEGER,
-    product_id: DataTypes.INTEGER,
+    saleId: {type:DataTypes.INTEGER, primaryKey:true},
+    productId: {type:DataTypes.INTEGER, primaryKey:true},
     quantity: DataTypes.INTEGER
   }, {
     sequelize,
     timestamps: false,
     modelName: 'SalesProducts',
-    tableName: 'sales_products'
+    tableName: 'sales_products',
+    underscored: true
   });
   return SalesProducts;
 };

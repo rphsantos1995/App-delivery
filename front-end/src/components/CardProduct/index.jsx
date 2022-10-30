@@ -14,7 +14,7 @@ export default function CardProduct({ id, price, image, name }) {
   return (
     <div className="card-product">
       <span className="price" data-testid={ `${testId[16]}${id}` }>
-        { price.replace('.', ',') }
+        { String(price).replace('.', ',') }
       </span>
       <img
         src={ image }

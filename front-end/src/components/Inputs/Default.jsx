@@ -24,3 +24,7 @@ Default.propTypes = {
   id: PropTypes.string.isRequired,
   change: PropTypes.func.isRequired,
 };
+
+// Default.defaultProps = {
+//   // change: () => null,
+// };

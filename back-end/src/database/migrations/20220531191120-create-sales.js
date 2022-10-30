@@ -23,13 +23,13 @@ module.exports = {
         },
       },
       total_price: {
-        type: Sequelize.INTEGER
+        type: Sequelize.DECIMAL(10,2)
       },
       delivery_address: {
         type: Sequelize.STRING
       },
       delivery_number: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       sale_date: {
         type: Sequelize.DATE

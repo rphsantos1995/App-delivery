@@ -17,14 +17,14 @@ export default function Register() {
   const user = useTokenUser();
   const Navigate = useNavigate();
 
-  useEffect(() => {
+  const redirectPage = () => {
     if (user.payload) {
       const { role, name } = user.payload;
       return Navigate('/customer/products', { state: { role, name } });
     }
-  },
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  [user, isLogged, failedRegister]);
+  };
+
+  useEffect(redirectPage, [user, isLogged, failedRegister]);
 
   const handleChange = ({ target }) => {
     const { id, value } = target;
@@ -41,7 +41,7 @@ export default function Register() {
 
   const setLocalStorage = ({ token, name, email: usermail, role }) => {
     localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify({ name, usermail, role }));
+    localStorage.setItem('user', JSON.stringify({ name, email: usermail, role }));
   };
 
   const create = async (event) => {
@@ -50,10 +50,6 @@ export default function Register() {
 
     const result = await createUser(endpoint, { username, email, password });
 
-    // if (result.response.data.includes("User already created")) {
-    //   setErrorMsg(result.response.data);
-    //   setFailedRegister(true);
-    // }
     if (result.token) {
       setLocalStorage(result);
       setIsLogged(true);

@@ -33,4 +33,5 @@ Buttons.propTypes = {
 Buttons.defaultProps = {
   type: 'button',
   disabled: false,
+  // clicked: () => null,
 };
