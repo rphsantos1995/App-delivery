@@ -8,7 +8,7 @@ const getAll = async (_req, res) => {
     return res.status(StatusCodes.OK).json(products);
  } catch (e) {
     console.log(e);
-     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: errorMessages.INTERNAL });
+     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: e });
  }
 };
 
