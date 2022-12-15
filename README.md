@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 # Boas vindas ao repositório do projeto App de Delivery!
 
 Para realizar o projeto, atente-se a cada passo descrito a seguir, e se tiver qualquer dúvida, nos envie por _Slack_! #vqv 🚀
@@ -423,6 +425,16 @@ describe(requirement(1), () => {
   </summary>
 
   - Escreva testes unitários e sinta-se livre para alterar a UI. Contudo, respeite os atributos `data-testid`, pois eles serão usados na correção do projeto.
+
+</details>
+  
+ <details>
+  <summary>
+    <strong>⚠️ Upload de arquivos</strong>
+  </summary>
+
+  - Caso necessite realizar upload de algum arquivo/imagem, pode utilizar a ferramenta/tecnologia de sua preferência.
+Importante ressaltar que temos no course um conteúdo sobre o Multer e recomendamos a sua utilização, que inclusive já está instalado nas dependências, não deixe de dar uma olhada.
 
 </details>
 
@@ -925,7 +937,7 @@ Todos os testes desse arquivo:
 
 ---
 
-####  21 - Desenvolva a tela de checkout do cliente de forma a gerar uma nova venda na tabela sales, assim como relações em salesProducts, ao finalizar o pedido
+####  21 - Desenvolva a tela de checkout do cliente de forma a gerar uma nova venda na tabela sales, assim como relações em sales_products, ao finalizar o pedido
 
 **Observações técnicas**
 
@@ -938,7 +950,7 @@ Todos os testes desse arquivo:
 - O "status" padrão de cada pedido deve ser `Pendente`;
 
 - Deve-se garantir que a requisição para API se encarregue de criar uma venda, e na mesma requisição, relacionar essa venda com os produtos do carrinho:
-  - Aqui possuímos uma relação de `N:N` (muitos para muitos) onde se relacionam as tabelas: `sales` < 1:N > `salesProducts` < N:1 > `products`.
+  - Aqui possuímos uma relação de `N:N` (muitos para muitos) onde se relacionam as tabelas: `sales` < 1:N > `sales_products` < N:1 > `products`.
 
 - Os testes farão a inserção da venda via checkout e após isso farão a validação desses dados no banco de dados.
 
@@ -1559,3 +1571,4 @@ Se seu projeto estiver concluído, considere a expansão que ele pode passar ao 
 É super importante que tenhamos seguido todos os princípios e boas práticas de programação (como `SOLID`, por exemplo), tal como uma boa modelagem do banco de dados que torne possível gerar escala.
 
 Evidentemente, nada fica ideal em um primeiro momento, mas quanto mais conseguirmos trabalhar no nosso projeto pensando a manutenção dele no longo prazo, mais fácil fica de programarmos coisas novas partindo do nosso código legado, por isso é importante sempre revisar nosso trabalho!
+>>>>>>> 0e10e39691837264ca248a9d88440ba0b5735617
